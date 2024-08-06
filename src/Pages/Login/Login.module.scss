@@ -1,0 +1,31 @@
+.wrapper {
+    background-color: #f2f4f7;
+    height: 100%;
+}
+.left {
+    margin-top: 50px;
+
+    .brand {
+        text-transform: uppercase;
+        font-size: 30px;
+        color: #1877f2;
+    }
+    .detail {
+        font-size: 20px;
+    }
+}
+.right {
+    background-color: #fff;
+    padding: 0 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+
+    span {
+        a {
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

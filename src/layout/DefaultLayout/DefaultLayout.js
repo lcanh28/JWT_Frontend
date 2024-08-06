@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './DefaultLayout.module.scss';
-import Navigation from '../Navigation';
-
+import Navigation from '../Navigation/Navigation';
 const cx = classNames.bind(styles);
 
 const DefaultLayout = ({ children }) => {
