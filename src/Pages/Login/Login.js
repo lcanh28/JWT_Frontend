@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import style from './Login.module.scss';
 import { Link } from 'react-router-dom';
+import config from '../../config';
 
 const cx = classNames.bind(style);
 
@@ -26,7 +27,9 @@ function Login() {
                             </span>
                             <hr />
                             <div className="text-center">
-                                <Link className="btn btn-info">Create new account</Link>
+                                <Link to={config.routes.register} className="btn btn-info">
+                                    Create new account
+                                </Link>
                             </div>
                         </div>
                     </div>
