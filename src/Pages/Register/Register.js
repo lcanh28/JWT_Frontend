@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './Register.module.scss';
 import config from '../../config';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const cx = classNames.bind(style);
 
 function Register() {
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [rePassword, setRePassword] = useState('');
+
+    const handleRegister = () => {
+        let userData = { email, phone, username, password, rePassword };
+        console.log('check data', userData);
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container', 'py-5')}>
@@ -19,27 +31,59 @@ function Register() {
                     </div>
                     <div className={cx('right', 'col-12 col-sm-5')}>
                         <div className={cx('p-3 d-flex flex-column gap-3')}>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>User name:</label>
-                                <input type="text" class="form-control" placeholder="User name" />
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="User name"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
                             </div>
-                            <div class="form-group">
-                                <label>Email address or phone number:</label>
-                                <input type="text" class="form-control" placeholder="Enter email or phone number" />
+                            <div className="form-group">
+                                <label>Email address:</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
                             </div>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>Phone number:</label>
-                                <input type="text" class="form-control" placeholder="Phone number" />
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Phone number"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                />
                             </div>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>Password:</label>
-                                <input type="password" class="form-control" placeholder="Password" />
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
                             </div>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>Re-enter Password:</label>
-                                <input type="password" class="form-control" placeholder="Re-enter Password" />
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Re-enter Password"
+                                    value={rePassword}
+                                    onChange={(e) => setRePassword(e.target.value)}
+                                />
                             </div>
-                            <button className="btn btn-primary">Register</button>
+                            <button onClick={() => handleRegister()} className="btn btn-primary">
+                                Register
+                            </button>
                             <hr />
                             <div className="text-center">
                                 <Link to={config.routes.login} className="btn btn-info">
