@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import style from './Register.module.scss';
 import config from '../../config';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const cx = classNames.bind(style);
@@ -14,7 +15,42 @@ function Register() {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
 
+    const isValidInputs = () => {
+        if (!username) {
+            toast.error('Username is required');
+            return false;
+        }
+
+        if (!email) {
+            toast.error('Email is required');
+            return false;
+        }
+        let regx = /\S+@\S+\.\S+/;
+        if (!regx.test(email)) {
+            toast.error('Please enter a valid email address');
+            return false;
+        }
+
+        if (!phone) {
+            toast.error('Phone is required');
+            return false;
+        }
+
+        if (!password) {
+            toast.error('Password is required');
+            return false;
+        }
+        if (password != rePassword) {
+            toast.error('Your password is not the same');
+            return false;
+        }
+
+        return true;
+    };
+
     const handleRegister = () => {
+        let check = isValidInputs();
+
         let userData = { email, phone, username, password, rePassword };
         console.log('check data', userData);
     };
