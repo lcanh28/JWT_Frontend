@@ -4,11 +4,15 @@ import style from './Register.module.scss';
 import config from '../../config';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import { registerNewUser } from '../../services/userService';
+import { useNavigate } from 'react-router-dom'
+
 
 const cx = classNames.bind(style);
 
 function Register() {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [username, setUsername] = useState('');
@@ -64,11 +68,19 @@ function Register() {
         return true;
     };
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         let check = isValidInputs();
 
         if (check) {
-            axios.post('http://localhost:8000/api/register', { email, phone, username, password });
+            let response = await  registerNewUser(email, phone, username, password);
+            let serverData = response.data;
+            if(+serverData.EC === 0) {
+                toast.success(serverData.EM);
+                navigate('/login');
+            } else {
+                toast.error(serverData.EM);
+            }
+            console.log("response", response)
         }
     };
 
