@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import style from './Navigation.module.scss';
-import config from '../../config';
+import config from '../../../config';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(style);

@@ -1,5 +1,6 @@
 import config from '../config';
 import DefaultLayout from '../layout/DefaultLayout';
+import LoginLayout from '../layout/LoginLayout';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register/Register';
@@ -14,12 +15,12 @@ const publicRoutes = [
     {
         path: config.routes.login,
         component: Login,
-        layout: DefaultLayout,
+        layout: LoginLayout,
     },
     {
         path: config.routes.register,
         component: Register,
-        layout: DefaultLayout,
+        layout: LoginLayout,
     },
     {
         path: config.routes.user,
