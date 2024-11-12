@@ -88,14 +88,14 @@ function Register() {
         <div className={cx('wrapper')}>
             <div className={cx('container', 'py-5')}>
                 <div className="row">
-                    <div className={cx('left', 'col-7 d-none d-sm-block mt-5')}>
+                    <div className={cx('left', 'col-6 d-none d-sm-block mt-5')}>
                         <div className={cx('brand')}>Lê Công Anh</div>
                         <div className={cx('detail')}>
                             I was born on 28/02/2003 and am currently a student at Duy Tan University
                         </div>
                     </div>
-                    <div className={cx('right', 'col-12 col-sm-5')}>
-                        <div className={cx('p-3 d-flex flex-column gap-3')}>
+                    <div className={cx('col-12 col-sm-6 px-5')}>
+                        <div className={cx('right', 'p-3 d-flex flex-column gap-3')}>
                             <div className="form-group">
                                 <label>User name:</label>
                                 <input
