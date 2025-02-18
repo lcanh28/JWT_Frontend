@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import style from './User.module.scss';
+import style from './Users.module.scss';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 
-function Login() {
+function Users() {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function Login() {
         <div className={cx('wrapper')}>
             <div className={cx('container', 'py-5')}>
                 <div className="row">
-                    <div className={cx('left', 'col-7 d-none d-sm-block mt-5')}>
+                    <div className={cx('left', 'd-none d-sm-block mt-5')}>
                         <div className={cx('brand')}>Lê Công Anh</div>
                         <div className={cx('detail')}>User</div>
                     </div>
@@ -29,4 +29,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Users;

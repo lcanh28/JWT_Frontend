@@ -4,7 +4,8 @@ import LoginLayout from '../layout/LoginLayout';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register/Register';
-import User from '../Pages/ManageUsers';
+import Users from '../Pages/Users';
+import ProJects from '../Pages/Projects'
 
 const publicRoutes = [
     {
@@ -24,7 +25,12 @@ const publicRoutes = [
     },
     {
         path: config.routes.user,
-        component: User,
+        component: Users,
+        layout: DefaultLayout,
+    },
+    {
+        path: config.routes.projects,
+        component: ProJects,
         layout: DefaultLayout,
     },
 ];

@@ -10,6 +10,8 @@ function Navigation() {
     return (
         <div className={cx('topnav')}>
             <Link to={config.routes.home}>Home</Link>
+            <Link to={config.routes.user}>Users</Link>
+            <Link to={config.routes.projects}>Projects</Link>
             <Link to={config.routes.login}>Login</Link>
         </div>
     );
