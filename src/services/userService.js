@@ -7,4 +7,8 @@ const registerNewUser = (email, phone, username, password) => {
 const loginUser = (accountLogin, password) => {
     return axios.post('http://localhost:8000/api/login', { accountLogin, password });
 };
-export { registerNewUser, loginUser };
+
+const fetchAllUsers = () => {
+    return axios.get('http://localhost:8000/api/user/read');
+}
+export { registerNewUser, loginUser, fetchAllUsers };
