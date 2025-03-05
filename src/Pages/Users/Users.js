@@ -6,17 +6,22 @@ import { fetchAllUsers, deleteUser } from '../../services/userService';
 import ReactPaginate from 'react-paginate';
 import { toast } from 'react-toastify';
 import ModalDelete from './ModalDelete'
+import ModalUser from './ModalUser';
 
 const cx = classNames.bind(style);
 
 function Users() {
     const navigate = useNavigate();
     const [listUsers, setListUsers] = useState([])
+    //pagination
     const [currentPage, setCurrentPage] = useState(1)
     const [currentLimit, setCurrentLimit] = useState(4)
     const [totalPages, setTotalPages] = useState(0)
+    //modal delete user
     const [isShowModalDele, setIsShowModalDele] = useState(false)
-    const [dataModal, setDataModal] = useState({})
+    const [dataModalDele, setDataModalDele] = useState({})
+    //modal create user
+    const [isShowModalUser, setIsShowModalUser] = useState(false)
 
     // useEffect(() => {
     //     let session = sessionStorage.getItem('account');
@@ -44,14 +49,14 @@ function Users() {
     };
     const handleDeleteUser = (user) => {
         setIsShowModalDele(true)
-        setDataModal(user)
+        setDataModalDele(user)
     }
-    const handleClose = () => {
+    const handleCloseModalDele = () => {
         setIsShowModalDele(false)
-        setDataModal({})
+        setDataModalDele({})
     }
     const confirmDeleUser = async () => {
-        let response = await deleteUser(dataModal)
+        let response = await deleteUser(dataModalDele)
         if(response && response.data.EC === 0) {
             toast.success(response.data.EM)
             await fetchUsers()
@@ -59,6 +64,9 @@ function Users() {
             toast.error(response.data.EM)
         }
         setIsShowModalDele(false)
+    }
+    const handleCloseModalUser = () => {
+        setIsShowModalUser(false)
     }
 
     return (
@@ -69,7 +77,7 @@ function Users() {
                         <div><h3 className='fs-2'>Table Users</h3></div>
                         <div className='actions'>
                             <button className='btn btn-success'>Refesh</button>
-                            <button className='btn btn-primary'>Add new user</button>
+                            <button className='btn btn-primary' onClick={() => setIsShowModalUser(true)}>Add new user</button>
                         </div>
                     </div>
                     <div className='user-body'>
@@ -137,9 +145,13 @@ function Users() {
             </div>
             <ModalDelete 
                 show={isShowModalDele}
-                handleClose={handleClose}
+                handleClose={handleCloseModalDele}
                 confirmDeleUser={confirmDeleUser}
-                dataModal={dataModal}
+                dataModalDele={dataModalDele}
+            />
+            <ModalUser 
+                handleClose={handleCloseModalUser}
+                show={isShowModalUser}
             />
         </>
     );
