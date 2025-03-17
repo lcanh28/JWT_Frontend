@@ -7,6 +7,10 @@ import ReactPaginate from 'react-paginate';
 import { toast } from 'react-toastify';
 import ModalDelete from './ModalDelete'
 import ModalUser from './ModalUser';
+import { FiRefreshCcw } from "react-icons/fi";
+import { FaPlusCircle } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
 
 const cx = classNames.bind(style);
 
@@ -20,8 +24,10 @@ function Users() {
     //modal delete user
     const [isShowModalDele, setIsShowModalDele] = useState(false)
     const [dataModalDele, setDataModalDele] = useState({})
-    //modal create user
+    //modal update/create user
+    const [actionModalUser, setActionModalUser] = useState("")
     const [isShowModalUser, setIsShowModalUser] = useState(false)
+    const [dataModalUser, setDataModalUser] = useState([])
 
     // useEffect(() => {
     //     let session = sessionStorage.getItem('account');
@@ -33,6 +39,7 @@ function Users() {
     useEffect(() => {
         fetchUsers();
     }, [currentPage])
+
     const fetchUsers = async ()=> {
         try {
             let response = await fetchAllUsers(currentPage, currentLimit);
@@ -65,8 +72,18 @@ function Users() {
         }
         setIsShowModalDele(false)
     }
-    const handleCloseModalUser = () => {
+    const handleCloseModalUser = async () => {
+        setDataModalUser({})
         setIsShowModalUser(false)
+        await fetchUsers()
+    }
+    const handleEditUser = (user) => {
+        setActionModalUser('UPDATE')
+        setDataModalUser(user)
+        setIsShowModalUser(true)
+    }
+    const handleRefresh = async () => {
+        await fetchUsers()
     }
 
     return (
@@ -74,10 +91,23 @@ function Users() {
             <div className={cx('wrapper')}>
                 <div className={cx('container', 'py-5')}>
                     <div className="user-header">
-                        <div><h3 className='fs-2'>Table Users</h3></div>
-                        <div className='actions'>
-                            <button className='btn btn-success'>Refesh</button>
-                            <button className='btn btn-primary' onClick={() => setIsShowModalUser(true)}>Add new user</button>
+                        <div><h3 className='fs-2 mb-2'>Manage Users</h3></div>
+                        <div className='actions mb-3 d-flex'>
+                            <button className='btn btn-success me-2 d-flex align-items-center'
+                                onClick={() => handleRefresh()}
+                            >
+                                <FiRefreshCcw className='me-1'/>
+                                Refresh
+                            </button>
+                            <button className='btn btn-primary d-flex align-items-center' 
+                                onClick={() => {
+                                    setIsShowModalUser(true)
+                                    setActionModalUser("CREATE")
+                                }}
+                            >
+                                <FaPlusCircle className='me-1'/>
+                                Add new user
+                            </button>
                         </div>
                     </div>
                     <div className='user-body'>
@@ -102,10 +132,12 @@ function Users() {
                                                     <td>{item.username}</td>
                                                     <td>{item.Group ? item.Group.name : ''}</td>
                                                     <td>
-                                                        <button className='btn btn-warning me-3'>Edit</button>
-                                                        <button className='btn btn-danger'
+                                                        <button className='btn btn-warning me-3' title='Edit'
+                                                            onClick={() => handleEditUser(item)}
+                                                        ><CiEdit /></button>
+                                                        <button className='btn btn-danger' title='Delete'
                                                             onClick={() => handleDeleteUser(item)}
-                                                        >Delete</button>
+                                                        ><MdDeleteOutline /></button>
                                                     </td>
                                                 </tr>
                                             )
@@ -152,6 +184,8 @@ function Users() {
             <ModalUser 
                 handleClose={handleCloseModalUser}
                 show={isShowModalUser}
+                action={actionModalUser}
+                dataModalUser={dataModalUser}
             />
         </>
     );
