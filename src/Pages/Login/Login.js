@@ -34,8 +34,8 @@ function Login() {
         }
         let response = await loginUser(accountLogin, password);
         //successfull
-        if (response && response.data && +response.data.EC === 0) {
-            toast.success(response.data.EM);
+        if (response && +response.EC === 0) {
+            toast.success(response.EM);
 
             let data = {
                 isUser: true,
@@ -45,8 +45,8 @@ function Login() {
             navigate('/user');
         }
         //error
-        if (response && response.data && +response.data.EC !== 0) {
-            toast.error(response.data.EM);
+        if (response && +response.EC !== 0) {
+            toast.error(response.EM);
         }
     }
     const handlePressEnter = (event) => {
